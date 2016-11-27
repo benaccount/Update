@@ -8,14 +8,33 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-/**
+
+public class ApacheHttpRestClient2 {
+ /**
+ * This example demonstrates an alternative way to call a URL
+ * using the RestAssured
+*/
+  public void RestAssured() {
+
+    // when
+    Response response =
+            given().
+                    header("Accept-Encoding", "application/json").
+            when().
+                    get("/data/2.5/weather?q=Warsaw");
+
+    // then
+    assertThat(response.contentType()).isEqualTo("application/json; charset=utf-8");
+    assertThat(response.statusCode()).isEqualTo(200);
+    assertThat(response.body().jsonPath().getString("name")).isEqualTo("Warsaw");
+}
+
+  /**
  * This example demonstrates an alternative way to call a URL
  * using the Apache HttpClient HttpGet and HttpResponse
  * classes
 
 */
-public class ApacheHttpRestClient2 {
-
   public final static void main(String[] args) {
     
     HttpClient httpClient = new DefaultHttpClient();
