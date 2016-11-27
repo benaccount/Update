@@ -14,7 +14,8 @@ public class ApacheHttpRestClient2 {
  * This example demonstrates an alternative way to call a URL
  * using the RestAssured
 */
-  public void RestAssured() {
+ @Test 
+ public void RestAssured_1() {
 
     // when
     Response response =
@@ -28,7 +29,61 @@ public class ApacheHttpRestClient2 {
     assertThat(response.statusCode()).isEqualTo(200);
     assertThat(response.body().jsonPath().getString("name")).isEqualTo("my_data");
 }
+@Test
+public void RestAssured_2() throws Exception {
+try {
+URL url = new URL(
+“http://someURL.API;);
+HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+conn.setRequestMethod(“GET”);
+conn.setRequestProperty(“Accept”, “application/json”);
 
+if (conn.getResponseCode() != 200) {
+throw new RuntimeException(” HTTP error code : ”
++ conn.getResponseCode());
+}
+
+Scanner scan = new Scanner(url.openStream());
+String entireResponse = new String();
+while (scan.hasNext())
+entireResponse += scan.nextLine();
+
+System.out.println(“Response : “+entireResponse);
+
+scan.close();
+
+JSONObject obj = new JSONObject(entireResponse );
+String responseCode = obj.getString(“status”);
+System.out.println(“status : ” + responseCode);
+
+JSONArray arr = obj.getJSONArray(“results”);
+for (int i = 0; i < arr.length(); i++) {
+String placeid = arr.getJSONObject(i).getString(“place_id”);
+String searchformat = arr.getJSONObject(i).getString(
+“searchformat”);
+System.out.println(“Address : ” + searchformat);
+
+//validating per the requirement
+if(searchformat.equalsIgnoreCase(“Expected Rest Assured))
+{
+System.out.println(“Found Expected”);
+}
+else
+{
+System.out.println(“Expected not found”);
+}
+}
+
+conn.disconnect();
+} catch (MalformedURLException e) {
+e.printStackTrace();
+
+} catch (IOException e) {
+
+e.printStackTrace();
+
+}
+ }
   /**
  * This example demonstrates an alternative way to call a URL
  * using the Apache HttpClient HttpGet and HttpResponse
