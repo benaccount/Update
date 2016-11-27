@@ -21,12 +21,12 @@ public class ApacheHttpRestClient2 {
             given().
                     header("Accept-Encoding", "application/json").
             when().
-                    get("/data/2.5/weather?q=Warsaw");
+                    get("/data/date/my_data");
 
     // then
     assertThat(response.contentType()).isEqualTo("application/json; charset=utf-8");
     assertThat(response.statusCode()).isEqualTo(200);
-    assertThat(response.body().jsonPath().getString("name")).isEqualTo("Warsaw");
+    assertThat(response.body().jsonPath().getString("name")).isEqualTo("my_data");
 }
 
   /**
