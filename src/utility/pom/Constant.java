@@ -3,7 +3,7 @@ package utility.pom;
    public class Constant 
    {
 	
-	public static final String URL = "http://practiceselenium.com/practice-form.html";
+	public static final String URL = "http";
 	
 	
 	
